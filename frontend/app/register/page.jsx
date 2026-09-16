@@ -1,0 +1,168 @@
+// ─────────────────────────────────────────────────────────────
+// app/register/page.jsx — Registration form (requirements.md §10)
+//
+// confirmPassword is validated here only — it is never sent to the
+// backend, which only needs firstName/lastName/email/password.
+// ─────────────────────────────────────────────────────────────
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { register } from "@/services/auth.service";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export default function RegisterPage() {
+  const router = useRouter();
+
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validate = () => {
+    if (
+      !form.firstName ||
+      !form.lastName ||
+      !form.email ||
+      !form.password ||
+      !form.confirmPassword
+    ) {
+      return "All fields are required";
+    }
+    if (!EMAIL_REGEX.test(form.email)) {
+      return "Invalid email format";
+    }
+    if (form.password.length < 6) {
+      return "Password must be at least 6 characters";
+    }
+    if (form.password !== form.confirmPassword) {
+      return "Passwords do not match";
+    }
+    return "";
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const validationError = validate();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setError("");
+    setLoading(true);
+
+    try {
+      await register(form);
+      router.push("/login");
+    } catch (err) {
+      setError(
+        err.response?.data?.message ||
+          "Registration failed. Is the backend running?"
+      );
+      setLoading(false);
+    }
+  };
+
+  return (
+    <main className="flex min-h-[calc(100vh-56px)] items-center justify-center bg-gray-50 p-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-sm rounded-lg bg-white p-6 shadow"
+      >
+        <h1 className="mb-6 text-2xl font-bold text-gray-800">Register</h1>
+
+        {error && (
+          <p className="mb-4 rounded bg-red-50 p-3 text-sm text-red-600">
+            {error}
+          </p>
+        )}
+
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          First Name <span className="text-red-500">*</span>
+        </label>
+        <input
+          name="firstName"
+          value={form.firstName}
+          onChange={handleChange}
+          required
+          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-blue-500"
+        />
+
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          Last Name <span className="text-red-500">*</span>
+        </label>
+        <input
+          name="lastName"
+          value={form.lastName}
+          onChange={handleChange}
+          required
+          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-blue-500"
+        />
+
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          Email <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          required
+          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-blue-500"
+        />
+
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          Password <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="password"
+          name="password"
+          value={form.password}
+          onChange={handleChange}
+          required
+          className="mb-4 w-full rounded border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-blue-500"
+        />
+
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          Confirm Password <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="password"
+          name="confirmPassword"
+          value={form.confirmPassword}
+          onChange={handleChange}
+          required
+          className="mb-6 w-full rounded border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-blue-500"
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full rounded bg-blue-600 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+        >
+          {loading ? "Registering..." : "Register"}
+        </button>
+
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link href="/login" className="text-blue-600 hover:underline">
+            Login
+          </Link>
+        </p>
+      </form>
+    </main>
+  );
+}
