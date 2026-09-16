@@ -26,4 +26,30 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// A 401 on a PROTECTED endpoint means the token is missing/expired/invalid —
+// force a logout so the user isn't left staring at a stale authenticated
+// page (requirements.md §42: don't ignore backend 401/403 responses).
+// /auth/* is excluded: login's own 401 ("Invalid email or password") must
+// stay inline on the login form, not trigger a redirect away from it.
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const isAuthEndpoint = error.config?.url?.startsWith("/auth/");
+
+    if (
+      error.response?.status === 401 &&
+      !isAuthEndpoint &&
+      typeof window !== "undefined"
+    ) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      if (window.location.pathname !== "/login") {
+        window.location.href = "/login";
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export default api;
