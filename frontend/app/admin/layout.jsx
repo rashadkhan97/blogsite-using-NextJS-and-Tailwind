@@ -1,13 +1,18 @@
 // ─────────────────────────────────────────────────────────────
-// app/dashboard/layout.jsx — Dashboard shell (requirements.md §2, §13)
+// app/admin/layout.jsx — Admin-only shell (requirements.md §14)
+//
+// Non-admins are redirected to /dashboard rather than shown
+// "Access Denied" text — the backend's adminMiddleware 403s the
+// actual data requests regardless, so this is UX only, not the
+// real security boundary (per §14: don't rely only on hiding the menu).
 // ─────────────────────────────────────────────────────────────
 "use client";
 
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import Sidebar from "@/components/Sidebar";
 
-export default function DashboardLayout({ children }) {
-  const { passed } = useAuthGuard();
+export default function AdminLayout({ children }) {
+  const { passed } = useAuthGuard("admin");
 
   if (!passed) {
     return (

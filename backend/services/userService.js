@@ -46,4 +46,39 @@ const changePassword = async (userId, newPassword) => {
   await user.update({ password: hashedPassword });
 };
 
-module.exports = { getProfile, updateProfile, updateProfileImage, changePassword };
+const getAllUsers = async () => {
+  return User.findAll({
+    attributes: { exclude: ['password'] },
+    order: [['createdAt', 'DESC']],
+  });
+};
+
+const getUserById = async (id) => {
+  const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
+  if (!user) {
+    throw new AppError('User not found', 404);
+  }
+  return user;
+};
+
+const updateUserStatus = async (id, isActive) => {
+  const user = await User.findByPk(id);
+  if (!user) {
+    throw new AppError('User not found', 404);
+  }
+
+  await user.update({ isActive });
+
+  const { password, ...safeUser } = user.toJSON();
+  return safeUser;
+};
+
+module.exports = {
+  getProfile,
+  updateProfile,
+  updateProfileImage,
+  changePassword,
+  getAllUsers,
+  getUserById,
+  updateUserStatus,
+};

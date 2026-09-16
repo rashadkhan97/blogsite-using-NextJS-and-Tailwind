@@ -17,3 +17,15 @@ export function updateProfileImage(file) {
 export function changePassword(password) {
   return api.patch("/users/password", { password });
 }
+
+export function getAllUsers() {
+  return api.get("/users");
+}
+
+export function getUserById(id) {
+  return api.get(`/users/${id}`);
+}
+
+export function updateUserStatus(id, isActive) {
+  return api.patch(`/users/${id}/status`, { isActive });
+}
