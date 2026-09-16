@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
+import Avatar from "@/components/Avatar";
 
 export default function Navbar() {
   const router = useRouter();
@@ -49,18 +50,7 @@ export default function Navbar() {
             onClick={() => setMenuOpen((v) => !v)}
             className="flex items-center gap-2 rounded-full outline-none ring-blue-500 focus-visible:ring-2"
           >
-            {user.avatar ? (
-              <img
-                src={user.avatar}
-                alt=""
-                className="h-8 w-8 rounded-full object-cover"
-              />
-            ) : (
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-xs font-medium text-gray-600">
-                {user.firstName?.[0]}
-                {user.lastName?.[0]}
-              </span>
-            )}
+            <Avatar user={user} />
             <span className="text-sm font-medium text-gray-700">
               {user.firstName} {user.lastName}
             </span>

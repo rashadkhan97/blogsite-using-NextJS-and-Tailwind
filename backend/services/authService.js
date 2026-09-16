@@ -1,7 +1,12 @@
+const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const PasswordReset = require('../models/PasswordReset');
 const AppError = require('../utils/AppError');
+const gmailService = require('./gmailService');
+
+const RESET_TOKEN_TTL_MS = 15 * 60 * 1000;
 
 const register = async ({ firstName, lastName, email, password }) => {
   const existing = await User.findOne({ where: { email } });
@@ -47,4 +52,38 @@ const login = async ({ email, password }) => {
   return { token, user: safeUser };
 };
 
-module.exports = { register, login };
+const forgotPassword = async (email) => {
+  const user = await User.findOne({ where: { email } });
+  if (!user) {
+    // Don't reveal whether the email exists — respond as if it worked either way.
+    return;
+  }
+
+  await PasswordReset.destroy({ where: { userId: user.id } });
+
+  const rawToken = crypto.randomBytes(32).toString('hex');
+  const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+  const expiresAt = new Date(Date.now() + RESET_TOKEN_TTL_MS);
+
+  await PasswordReset.create({ userId: user.id, tokenHash, expiresAt });
+
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${rawToken}`;
+  await gmailService.sendPasswordResetEmail(user.email, resetUrl);
+};
+
+const resetPassword = async (rawToken, newPassword) => {
+  const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+
+  const record = await PasswordReset.findOne({ where: { tokenHash } });
+  if (!record || record.expiresAt < new Date()) {
+    throw new AppError('Invalid or expired reset token', 400);
+  }
+
+  const user = await User.findByPk(record.userId);
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  await user.update({ password: hashedPassword });
+
+  await PasswordReset.destroy({ where: { userId: user.id } });
+};
+
+module.exports = { register, login, forgotPassword, resetPassword };

@@ -2,6 +2,7 @@
 // components/BlogCard.jsx — Blog preview card (requirements.md §5)
 // ─────────────────────────────────────────────────────────────
 import Link from "next/link";
+import Avatar from "@/components/Avatar";
 
 function truncate(text, max = 150) {
   if (text.length <= max) return text;
@@ -26,18 +27,7 @@ export default function BlogCard({ blog }) {
       </p>
 
       <div className="mb-4 flex items-center gap-2 text-sm text-gray-500">
-        {author?.avatar ? (
-          <img
-            src={author.avatar}
-            alt=""
-            className="h-6 w-6 rounded-full object-cover"
-          />
-        ) : (
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-[10px] font-medium text-gray-600">
-            {author?.firstName?.[0]}
-            {author?.lastName?.[0]}
-          </span>
-        )}
+        <Avatar user={author} />
         <span>
           {author ? `${author.firstName} ${author.lastName}` : "Unknown"}
         </span>

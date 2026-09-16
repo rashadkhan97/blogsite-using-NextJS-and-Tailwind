@@ -42,4 +42,40 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login };
+const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return error(res, 'Email is required', 400);
+    }
+
+    await authService.forgotPassword(email);
+    logger.info(`Password reset requested for ${email}`);
+    return success(res, null, 'Please check your email for the password reset link');
+  } catch (err) {
+    next(err);
+  }
+};
+
+const resetPassword = async (req, res, next) => {
+  try {
+    const { password } = req.body;
+    const { token } = req.params;
+
+    if (!password) {
+      return error(res, 'Password is required', 400);
+    }
+    if (password.length < 6) {
+      return error(res, 'Password must be at least 6 characters', 400);
+    }
+
+    await authService.resetPassword(token, password);
+    logger.info('Password reset via reset link');
+    return success(res, null, 'Password reset successfully');
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { register, login, forgotPassword, resetPassword };

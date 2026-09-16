@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { getBlogById } from "@/services/blog.service";
+import Avatar from "@/components/Avatar";
 
 export default function BlogDetailsPage() {
   const { id } = useParams();
@@ -80,18 +81,7 @@ export default function BlogDetailsPage() {
         </h1>
 
         <div className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-          {author?.avatar ? (
-            <img
-              src={author.avatar}
-              alt=""
-              className="h-8 w-8 rounded-full object-cover"
-            />
-          ) : (
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-xs font-medium text-gray-600">
-              {author?.firstName?.[0]}
-              {author?.lastName?.[0]}
-            </span>
-          )}
+          <Avatar user={author} />
           <span>
             {author ? `${author.firstName} ${author.lastName}` : "Unknown"}
           </span>

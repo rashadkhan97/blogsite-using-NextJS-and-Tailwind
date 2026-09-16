@@ -37,6 +37,13 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  // Merges fresh server data (profile edit, avatar upload) into stored
+  // state, so the navbar/sidebar reflect it immediately without a relogin.
+  const updateUser = (updatedUser) => {
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -46,6 +53,7 @@ export function AuthProvider({ children }) {
         ready,
         login,
         logout,
+        updateUser,
       }}
     >
       {children}
