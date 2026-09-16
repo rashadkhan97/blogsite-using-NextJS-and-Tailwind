@@ -1,28 +1,31 @@
 // ─────────────────────────────────────────────────────────────
 // app/dashboard/layout.jsx — Dashboard shell (requirements.md §2, §13)
 //
-// Client-side guard: waits for AuthContext to finish reading
-// localStorage (`ready`) before deciding whether to redirect, so a
-// logged-in user isn't bounced to /login during the hydration tick.
+// Checks localStorage directly rather than AuthContext's `isAuthenticated`:
+// login() writes the token to localStorage synchronously before the
+// redirect to here, so this is the fastest, race-free source of truth —
+// no need to wait for AuthContext's own hydration effect to catch up.
 // ─────────────────────────────────────────────────────────────
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
 import Sidebar from "@/components/Sidebar";
 
 export default function DashboardLayout({ children }) {
   const router = useRouter();
-  const { isAuthenticated, ready } = useAuth();
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if (ready && !isAuthenticated) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       router.replace("/login");
+      return;
     }
-  }, [ready, isAuthenticated, router]);
+    setChecked(true);
+  }, [router]);
 
-  if (!ready || !isAuthenticated) {
+  if (!checked) {
     return (
       <div className="flex min-h-[calc(100vh-56px)] items-center justify-center text-gray-500">
         Loading...

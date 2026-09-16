@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
+const blogRoutes = require('./routes/blogRoutes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const { success } = require('./utils/response');
 
@@ -14,6 +15,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/blogs', blogRoutes);
 
 app.use(errorMiddleware);
 
