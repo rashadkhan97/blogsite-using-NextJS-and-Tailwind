@@ -51,7 +51,7 @@ export default function Navbar() {
             className="flex items-center gap-2 rounded-full outline-none ring-blue-500 focus-visible:ring-2"
           >
             <Avatar user={user} />
-            <span className="text-sm font-medium text-gray-700">
+            <span className="hidden text-sm font-medium text-gray-700 sm:inline">
               {user.firstName} {user.lastName}
             </span>
           </button>
