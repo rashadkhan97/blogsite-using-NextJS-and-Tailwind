@@ -361,6 +361,10 @@ GET /api/blogs?title=playwright&category=Testing
 #### 4. Updating User Profile & Upload Avatar
 <img width="1900" height="857" alt="image" src="https://github.com/user-attachments/assets/bc8ad1fc-6148-454e-bb25-4f89c0f1241e" />
 
+#### 5. Changing User Password
+<img width="1898" height="798" alt="user_PasswordChange" src="https://github.com/user-attachments/assets/96a60da1-03d9-4cfd-8067-5f7634ad69e5" />
+
+
 
 
 
