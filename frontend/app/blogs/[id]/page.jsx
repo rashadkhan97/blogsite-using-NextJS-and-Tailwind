@@ -3,14 +3,22 @@
 // ─────────────────────────────────────────────────────────────
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
 import { getBlogById } from "@/services/blog.service";
 import Avatar from "@/components/Avatar";
 
-export default function BlogDetailsPage() {
+function BlogDetails() {
   const { id } = useParams();
+  const searchParams = useSearchParams();
+  const { user } = useAuth();
+
+  // Only the admin dashboard's "Read" link adds ?from=dashboard, so the
+  // way back to the dashboard is shown to admins arriving from there.
+  const fromAdminDashboard =
+    user?.role === "admin" && searchParams.get("from") === "dashboard";
 
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -92,12 +100,20 @@ export default function BlogDetailsPage() {
         <p className="whitespace-pre-wrap text-gray-700">{blog.blog}</p>
 
         <Link
-          href="/"
+          href={fromAdminDashboard ? "/dashboard" : "/"}
           className="mt-8 inline-block text-sm text-blue-600 hover:underline"
         >
-          ← Back to all blogs
+          {fromAdminDashboard ? "← Back to dashboard" : "← Back to all blogs"}
         </Link>
       </div>
     </main>
+  );
+}
+
+export default function BlogDetailsPage() {
+  return (
+    <Suspense fallback={null}>
+      <BlogDetails />
+    </Suspense>
   );
 }

@@ -7,18 +7,28 @@
 // ─────────────────────────────────────────────────────────────
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getBlogs } from "@/services/blog.service";
 import BlogCard from "@/components/BlogCard";
 import SearchBar from "@/components/SearchBar";
 import CategoryFilter from "@/components/CategoryFilter";
 
-export default function HomePage() {
-  const [title, setTitle] = useState("");
+function HomeContent() {
+  const urlTitle = useSearchParams().get("title") || "";
+
+  const [title, setTitle] = useState(urlTitle);
+  const [lastUrlTitle, setLastUrlTitle] = useState(urlTitle);
   const [category, setCategory] = useState("All");
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // A search submitted from the navbar changes the URL — adopt it here.
+  if (urlTitle !== lastUrlTitle) {
+    setLastUrlTitle(urlTitle);
+    setTitle(urlTitle);
+  }
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -82,5 +92,21 @@ export default function HomePage() {
         )}
       </div>
     </main>
+  );
+}
+
+// useSearchParams() must sit under a Suspense boundary so Next.js can
+// still prerender the rest of the page.
+export default function HomePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-[calc(100vh-56px)] bg-gray-50 p-6">
+          <p className="mx-auto max-w-6xl text-gray-500">Loading blogs...</p>
+        </main>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   );
 }

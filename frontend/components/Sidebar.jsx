@@ -57,20 +57,22 @@ export default function Sidebar({ open = false, onClose = () => {} }) {
             href={link.href}
             className={
               active
-                ? "rounded bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700"
-                : "rounded px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                ? "rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white shadow-sm"
+                : "rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
             }
           >
             {link.label}
           </Link>
         );
       })}
-      <button
-        onClick={handleLogout}
-        className="mt-2 rounded px-3 py-2 text-left text-sm font-medium text-gray-700 hover:bg-gray-100"
-      >
-        Logout
-      </button>
+      <div className="mt-4 border-t border-gray-100 pt-4">
+        <button
+          onClick={handleLogout}
+          className="w-full rounded-lg px-3 py-2 text-left text-sm font-medium text-red-600 hover:bg-red-50"
+        >
+          Logout
+        </button>
+      </div>
     </nav>
   );
 

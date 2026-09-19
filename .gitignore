@@ -1,6 +1,17 @@
-frontend/.env
-backend/.env
-Reference_Folder/
-requirements.md
+# dependencies
+node_modules/
+
+# env files — real ones stay local, the .env.example templates are committed
+.env*
+!.env.example
+
+# Next.js build output
+.next/
+
+# uploaded profile images (keep the folder itself via .gitkeep)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# local tooling and docs
 .claude/
 docs/
