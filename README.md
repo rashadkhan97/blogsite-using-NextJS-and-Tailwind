@@ -388,9 +388,9 @@ GET /api/blogs?title=playwright&category=Testing
 
 
 
-### Mobile sidebar drawer
+### Mobile View 
+<img width="1998" height="836" alt="phone_View_Merged_Images" src="https://github.com/user-attachments/assets/58b5614e-8ba2-45f1-8ccb-2d2a7b25add5" />
 
-![Mobile layout with the sidebar drawer open](screenshots/mobile-drawer.png)
 
 ## Available Scripts
 
