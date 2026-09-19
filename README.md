@@ -364,6 +364,17 @@ GET /api/blogs?title=playwright&category=Testing
 #### 5. Changing User Password
 <img width="1898" height="798" alt="user_PasswordChange" src="https://github.com/user-attachments/assets/96a60da1-03d9-4cfd-8067-5f7634ad69e5" />
 
+#### 6. Create Blog
+<img width="1897" height="847" alt="image" src="https://github.com/user-attachments/assets/a6e3f980-cc90-4a42-89fe-ce8d225e595d" />
+
+#### 7. Update Own Blog
+<img width="1900" height="853" alt="image" src="https://github.com/user-attachments/assets/35cfc8a0-9469-45d3-820d-c27a27ed191e" />
+
+#### 8. Delete Blog
+<img width="1901" height="794" alt="user_DeleteBlog" src="https://github.com/user-attachments/assets/0c890bd2-3807-4110-aba7-a95537b22ee2" />
+
+#### 9. User Blog List
+<img width="1901" height="799" alt="user_BlogList" src="https://github.com/user-attachments/assets/00bf1c34-af98-4345-99b8-6362caf5f3cb" />
 
 
 
