@@ -338,8 +338,10 @@ GET /api/blogs?title=playwright&category=Testing
 ## Screenshots
 
 ### Guest Mode
-#### Dashboard
-<img width="1900" height="793" alt="guest_page" src="https://github.com/user-attachments/assets/c4d80aa5-f493-4966-94d2-eb86800877dd" />
+#### 1. Dashboard
+<img width="1902" height="798" alt="guest_page" src="https://github.com/user-attachments/assets/2456f858-cedf-4e0d-b067-12866855523e" />
+
+#### 2. 
 
 ### Blog details
 
