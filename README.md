@@ -337,7 +337,7 @@ GET /api/blogs?title=playwright&category=Testing
 
 ## Screenshots
 
-### Guest Mode
+### GUEST MODE
 #### 1. Dashboard
 <img width="1902" height="798" alt="guest_page" src="https://github.com/user-attachments/assets/2456f858-cedf-4e0d-b067-12866855523e" />
 
@@ -347,10 +347,23 @@ GET /api/blogs?title=playwright&category=Testing
 #### 3. Read Blogs
 <img width="1901" height="799" alt="guest_readBlogs" src="https://github.com/user-attachments/assets/da7ce1f5-2f70-460e-9fc9-e2a40976abb8" />
 
+### USER MODE
+
+#### 1. Registration
+<img width="1902" height="795" alt="user_Registration" src="https://github.com/user-attachments/assets/93ba7fcd-74b7-4099-aed3-e0874c5cd3eb" />
+
+#### 2. Login as User
+<img width="1901" height="795" alt="user_Login" src="https://github.com/user-attachments/assets/dc558d9b-2596-49b4-aa97-945c1904fed1" />
+
+#### 3. User Dashboard
+<img width="1902" height="798" alt="user_Dashboard" src="https://github.com/user-attachments/assets/91e6bfb8-4cbd-4b58-91f8-3ca7e7e7f9f0" />
+
+#### 4. User Profile Managing
+<img width="1900" height="857" alt="image" src="https://github.com/user-attachments/assets/bc8ad1fc-6148-454e-bb25-4f89c0f1241e" />
 
 
 
-### Blog details
+
 
 ![Blog details page](screenshots/blog-details.png)
 
