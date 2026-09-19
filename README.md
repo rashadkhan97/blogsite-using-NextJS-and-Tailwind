@@ -377,40 +377,15 @@ GET /api/blogs?title=playwright&category=Testing
 <img width="1901" height="799" alt="user_BlogList" src="https://github.com/user-attachments/assets/00bf1c34-af98-4345-99b8-6362caf5f3cb" />
 
 
+### ADMIN MODE
+
+#### 1. Admin Dashboard
+<img width="1895" height="855" alt="image" src="https://github.com/user-attachments/assets/264e3188-0164-44d7-93a1-b00e1ff54eb0" />
+
+#### 2. Manage Users
+<img width="1902" height="801" alt="admin_UserTable" src="https://github.com/user-attachments/assets/63776852-0e59-4390-9914-cb5563b0b129" />
 
 
-
-![Blog details page](screenshots/blog-details.png)
-
-### Register and login
-
-![Register page](screenshots/register.png)
-
-![Login page](screenshots/login.png)
-
-### User dashboard
-
-![User dashboard](screenshots/dashboard.png)
-
-### My Blogs
-
-![My Blogs table with edit and delete actions](screenshots/my-blogs.png)
-
-### Create Blog
-
-![Create blog form](screenshots/create-blog.png)
-
-### Profile and avatar
-
-![Profile page with avatar upload](screenshots/profile.png)
-
-### Change Password
-
-![Change password form](screenshots/change-password.png)
-
-### Admin user management
-
-![Admin users table](screenshots/admin-users.png)
 
 ### Mobile sidebar drawer
 
