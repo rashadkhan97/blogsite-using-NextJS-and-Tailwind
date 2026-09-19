@@ -341,47 +341,60 @@ GET /api/blogs?title=playwright&category=Testing
 
 ## Screenshots
 
-### Public blog discovery
+### GUEST MODE
+#### 1. Dashboard
+<img width="1902" height="798" alt="guest_page" src="https://github.com/user-attachments/assets/2456f858-cedf-4e0d-b067-12866855523e" />
 
-![Homepage with blog cards, search, and category filter](screenshots/home.png)
+#### 2. Search Blogs
+<img width="1901" height="798" alt="guest_searchBlogs" src="https://github.com/user-attachments/assets/3d79094c-4364-4d25-97d3-68ff88f2bb49" />
 
-### Blog details
+#### 3. Read Blogs
+<img width="1901" height="799" alt="guest_readBlogs" src="https://github.com/user-attachments/assets/da7ce1f5-2f70-460e-9fc9-e2a40976abb8" />
 
-![Blog details page](screenshots/blog-details.png)
+### USER MODE
 
-### Register and login
+#### 1. Registration
+<img width="1902" height="795" alt="user_Registration" src="https://github.com/user-attachments/assets/93ba7fcd-74b7-4099-aed3-e0874c5cd3eb" />
 
-![Register page](screenshots/register.png)
+#### 2. Log in as User
+<img width="1901" height="795" alt="user_Login" src="https://github.com/user-attachments/assets/dc558d9b-2596-49b4-aa97-945c1904fed1" />
 
-![Login page](screenshots/login.png)
+#### 3. User Dashboard
+<img width="1902" height="798" alt="user_Dashboard" src="https://github.com/user-attachments/assets/91e6bfb8-4cbd-4b58-91f8-3ca7e7e7f9f0" />
 
-### User dashboard
+#### 4. Updating User Profile & Upload Avatar
+<img width="1900" height="857" alt="image" src="https://github.com/user-attachments/assets/bc8ad1fc-6148-454e-bb25-4f89c0f1241e" />
 
-![User dashboard](screenshots/dashboard.png)
+#### 5. Changing User Password
+<img width="1898" height="798" alt="user_PasswordChange" src="https://github.com/user-attachments/assets/96a60da1-03d9-4cfd-8067-5f7634ad69e5" />
 
-### My Blogs
+#### 6. Create Blog
+<img width="1897" height="847" alt="image" src="https://github.com/user-attachments/assets/a6e3f980-cc90-4a42-89fe-ce8d225e595d" />
 
-![My Blogs table with edit and delete actions](screenshots/my-blogs.png)
+#### 7. Update Own Blog
+<img width="1900" height="853" alt="image" src="https://github.com/user-attachments/assets/35cfc8a0-9469-45d3-820d-c27a27ed191e" />
 
-### Create Blog
+#### 8. Delete Blog
+<img width="1901" height="794" alt="user_DeleteBlog" src="https://github.com/user-attachments/assets/0c890bd2-3807-4110-aba7-a95537b22ee2" />
 
-![Create blog form](screenshots/create-blog.png)
+#### 9. User Blog List
+<img width="1901" height="799" alt="user_BlogList" src="https://github.com/user-attachments/assets/00bf1c34-af98-4345-99b8-6362caf5f3cb" />
 
-### Profile and avatar
 
-![Profile page with avatar upload](screenshots/profile.png)
+### ADMIN MODE
 
-### Change Password
+#### 1. Admin Dashboard
+<img width="1895" height="855" alt="image" src="https://github.com/user-attachments/assets/264e3188-0164-44d7-93a1-b00e1ff54eb0" />
 
-![Change password form](screenshots/change-password.png)
+#### 2. Manage Users
+<img width="1901" height="797" alt="admin_UserTable" src="https://github.com/user-attachments/assets/0af86460-a138-40bf-b663-45d9c8184cd3" />
 
-### Admin user management
 
-![Admin users table](screenshots/admin-users.png)
 
-### Mobile sidebar drawer
 
-![Mobile layout with the sidebar drawer open](screenshots/mobile-drawer.png)
+### Mobile View 
+<img width="1998" height="836" alt="phone_View_Merged_Images" src="https://github.com/user-attachments/assets/58b5614e-8ba2-45f1-8ccb-2d2a7b25add5" />
+
 
 ## Available Scripts
 
