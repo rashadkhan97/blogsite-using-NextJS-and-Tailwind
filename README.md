@@ -341,7 +341,14 @@ GET /api/blogs?title=playwright&category=Testing
 #### 1. Dashboard
 <img width="1902" height="798" alt="guest_page" src="https://github.com/user-attachments/assets/2456f858-cedf-4e0d-b067-12866855523e" />
 
-#### 2. 
+#### 2. Search Blogs
+<img width="1901" height="798" alt="guest_searchBlogs" src="https://github.com/user-attachments/assets/3d79094c-4364-4d25-97d3-68ff88f2bb49" />
+
+#### 3. Read Blogs
+<img width="1901" height="799" alt="guest_readBlogs" src="https://github.com/user-attachments/assets/da7ce1f5-2f70-460e-9fc9-e2a40976abb8" />
+
+
+
 
 ### Blog details
 
