@@ -122,8 +122,7 @@ The frontend consumes the real REST API in this repository. There are no mock us
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
-cd <repository-folder>
+git clone https://github.com/rashadkhan97/blogsite-using-NextJS-and-Tailwind.git
 ```
 
 Install backend and frontend dependencies:
