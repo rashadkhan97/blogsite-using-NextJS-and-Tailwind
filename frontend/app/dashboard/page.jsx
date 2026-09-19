@@ -169,11 +169,11 @@ export default function DashboardPage() {
               <h3 className="mt-2 line-clamp-2 text-lg font-semibold text-gray-900">
                 {blog.blogTitle}
               </h3>
-              {isAdmin && (
-                <div className="flex-1">
-                  <p className="mt-2 line-clamp-1 text-sm text-gray-600">
-                    {blog.blog}
-                  </p>
+              <div className="flex-1">
+                <p className="mt-2 line-clamp-1 text-sm text-gray-600">
+                  {blog.blog}
+                </p>
+                {isAdmin && (
                   <div className="mt-3 flex items-center gap-2 text-sm text-gray-500">
                     <Avatar user={blog.author} />
                     <span>
@@ -182,9 +182,8 @@ export default function DashboardPage() {
                         : "Unknown"}
                     </span>
                   </div>
-                </div>
-              )}
-              {!isAdmin && <div className="flex-1" />}
+                )}
+              </div>
               <div className="mt-4 flex gap-4 text-sm font-medium">
                 <Link
                   href={

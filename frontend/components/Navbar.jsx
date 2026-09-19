@@ -7,7 +7,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import Avatar from "@/components/Avatar";
@@ -15,7 +15,11 @@ import SearchBar from "@/components/SearchBar";
 
 export default function Navbar() {
   const router = useRouter();
-  const { user, logout } = useAuth();
+  const pathname = usePathname();
+  const { user, ready, logout } = useAuth();
+  // The homepage has its own search box, so the navbar one is hidden
+  // there. Guests always search from the homepage, so they never get it.
+  const showSearch = ready && !!user && pathname !== "/";
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -60,15 +64,17 @@ export default function Navbar() {
         BlogSpace
       </Link>
 
-      <form
-        onSubmit={handleSearch}
-        role="search"
-        className="mx-6 hidden flex-1 justify-center sm:flex"
-      >
-        <SearchBar value={query} onChange={setQuery} className="max-w-xl" />
-      </form>
+      {showSearch && (
+        <form
+          onSubmit={handleSearch}
+          role="search"
+          className="mx-6 hidden flex-1 justify-center sm:flex"
+        >
+          <SearchBar value={query} onChange={setQuery} className="max-w-xl" />
+        </form>
+      )}
 
-      {user ? (
+      {!ready ? null : user ? (
         <div ref={menuRef} className="relative">
           <button
             onClick={() => setMenuOpen((v) => !v)}

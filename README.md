@@ -9,8 +9,8 @@ The frontend consumes the real REST API in this repository. There are no mock us
 ### Guest
 
 - Browse all blogs on the homepage
-- Search blogs by title, from the navbar on any page or from the homepage search box; results always appear on the homepage list
-- Filter blogs by category
+- Search blogs by title from the search card at the top of the homepage (type a title and press **Search** or Enter)
+- Filter blogs by category from the same card
 - Combine title search and category filtering
 - Read the full blog with author and date
 - Register, log in, and recover a forgotten password by email
@@ -27,7 +27,8 @@ The frontend consumes the real REST API in this repository. There are no mock us
 ### Admin
 
 - Everything a normal user can do
-- Admin dashboard with platform totals (blogs, users, categories in use) and the latest blogs across all authors
+- Admin dashboard with platform totals (blogs and users) and the latest blogs across all authors, each showing its category, title, a one-line preview, and author
+- **Read** on a dashboard blog opens the full blog with a **Back to dashboard** link (admin only; everyone else gets **Back to all blogs**)
 - **All Blogs**: view every user's blogs, and edit or delete any of them
 - **Users**: view all registered users with role and status
 - View an individual user's details (name, email, role, status, profile image, created date)
@@ -37,6 +38,8 @@ The frontend consumes the real REST API in this repository. There are no mock us
 ### General
 
 - Responsive layout: the sidebar becomes a slide-in drawer on small screens and blog cards stack vertically on mobile; the navbar search box is hidden on phone-width screens, where the homepage search box is used instead
+- The navbar search box is for logged-in users on pages other than the homepage; guests and the homepage use the homepage search box, so there is never a duplicate search bar
+- The homepage layout depends on who is viewing it: guests get the search card and article-style blog cards, while logged-in users get the compact search box and standard cards
 - Loading states, empty states, and readable error messages on every data-driven page
 - Submit buttons disable while a request is running to prevent duplicate submissions
 - If the backend rejects a token as expired or invalid, the next protected request logs the user out and returns them to the login page
@@ -123,6 +126,7 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/rashadkhan97/blogsite-using-NextJS-and-Tailwind.git
+cd blogsite-using-NextJS-and-Tailwind
 ```
 
 Install backend and frontend dependencies:
@@ -247,7 +251,7 @@ The frontend depends on the backend API and provides no mock data. Start the bac
 
 | Route | Access | Purpose |
 |---|---|---|
-| `/` | Public | Homepage with blog cards, search, and category filter |
+| `/` | Public | Homepage with blog cards, search, and category filter (`?title=` pre-fills the search) |
 | `/blogs/[id]` | Public | Blog details, with a "Blog Not Found" page for unknown ids |
 | `/register` | Public | User registration |
 | `/login` | Public | Login |
@@ -337,7 +341,7 @@ GET /api/blogs?title=playwright&category=Testing
 
 ## Screenshots
 
-### Public blog discovery
+### Guest Dashboard
 
 ![Homepage with blog cards, search, and category filter](screenshots/home.png)
 

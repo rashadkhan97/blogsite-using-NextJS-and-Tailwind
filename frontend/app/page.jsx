@@ -9,15 +9,28 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import { getBlogs } from "@/services/blog.service";
 import BlogCard from "@/components/BlogCard";
 import SearchBar from "@/components/SearchBar";
 import CategoryFilter from "@/components/CategoryFilter";
 
+function HomeFallback() {
+  return (
+    <main className="min-h-[calc(100vh-56px)] bg-gray-50 p-6">
+      <p className="mx-auto max-w-6xl text-gray-500">Loading blogs...</p>
+    </main>
+  );
+}
+
 function HomeContent() {
+  const { user, ready } = useAuth();
+  const isGuest = !user;
   const urlTitle = useSearchParams().get("title") || "";
 
   const [title, setTitle] = useState(urlTitle);
+  // Guests type into `draft` and apply it with the Search button / Enter.
+  const [draft, setDraft] = useState(urlTitle);
   const [lastUrlTitle, setLastUrlTitle] = useState(urlTitle);
   const [category, setCategory] = useState("All");
   const [blogs, setBlogs] = useState([]);
@@ -28,6 +41,7 @@ function HomeContent() {
   if (urlTitle !== lastUrlTitle) {
     setLastUrlTitle(urlTitle);
     setTitle(urlTitle);
+    setDraft(urlTitle);
   }
 
   useEffect(() => {
@@ -60,18 +74,62 @@ function HomeContent() {
     return () => clearTimeout(timeoutId);
   }, [title, category]);
 
+  const handleGuestSearch = (e) => {
+    e.preventDefault();
+    setTitle(draft.trim());
+  };
+
+  // Wait for the stored login to load, so a logged-in user never sees the
+  // guest layout (or the other way round) for a split second.
+  if (!ready) return <HomeFallback />;
+
   return (
     <main className="min-h-[calc(100vh-56px)] bg-gray-50 p-6">
       <div className="mx-auto max-w-6xl">
-        <h1 className="mb-2 text-3xl font-bold text-gray-800">BlogSpace</h1>
-        <p className="mb-6 text-gray-600">
-          Browse posts on testing, automation, programming, DevOps and AI.
-        </p>
+        {isGuest ? (
+          <form
+            onSubmit={handleGuestSearch}
+            role="search"
+            className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+          >
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <input
+                type="text"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder="Search blogs..."
+                aria-label="Search blogs"
+                className="w-full flex-1 rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none focus:border-blue-500 focus:bg-white"
+              />
+              <CategoryFilter
+                value={category}
+                onChange={setCategory}
+                className="rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm text-gray-900 outline-none focus:border-blue-500 sm:w-40"
+              />
+              <button
+                type="submit"
+                className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+              >
+                Search
+              </button>
+            </div>
+            <p className="mt-3 text-xs text-gray-500">
+              Search blogs by title, filter by category, or use both together.
+            </p>
+          </form>
+        ) : (
+          <>
+            <h1 className="mb-2 text-3xl font-bold text-gray-800">BlogSpace</h1>
+            <p className="mb-6 text-gray-600">
+              Browse posts on testing, automation, programming, DevOps and AI.
+            </p>
 
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <SearchBar value={title} onChange={setTitle} />
-          <CategoryFilter value={category} onChange={setCategory} />
-        </div>
+            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <SearchBar value={title} onChange={setTitle} />
+              <CategoryFilter value={category} onChange={setCategory} />
+            </div>
+          </>
+        )}
 
         {error && (
           <p className="mb-4 rounded bg-red-50 p-3 text-sm text-red-600">
@@ -86,7 +144,11 @@ function HomeContent() {
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
+              <BlogCard
+                key={blog.id}
+                blog={blog}
+                variant={isGuest ? "guest" : "default"}
+              />
             ))}
           </div>
         )}
@@ -99,13 +161,7 @@ function HomeContent() {
 // still prerender the rest of the page.
 export default function HomePage() {
   return (
-    <Suspense
-      fallback={
-        <main className="min-h-[calc(100vh-56px)] bg-gray-50 p-6">
-          <p className="mx-auto max-w-6xl text-gray-500">Loading blogs...</p>
-        </main>
-      }
-    >
+    <Suspense fallback={<HomeFallback />}>
       <HomeContent />
     </Suspense>
   );
