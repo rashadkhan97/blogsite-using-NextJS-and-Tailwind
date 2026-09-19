@@ -383,7 +383,8 @@ GET /api/blogs?title=playwright&category=Testing
 <img width="1895" height="855" alt="image" src="https://github.com/user-attachments/assets/264e3188-0164-44d7-93a1-b00e1ff54eb0" />
 
 #### 2. Manage Users
-<img width="1902" height="801" alt="admin_UserTable" src="https://github.com/user-attachments/assets/63776852-0e59-4390-9914-cb5563b0b129" />
+<img width="1901" height="797" alt="admin_UserTable" src="https://github.com/user-attachments/assets/0af86460-a138-40bf-b663-45d9c8184cd3" />
+
 
 
 
