@@ -352,13 +352,13 @@ GET /api/blogs?title=playwright&category=Testing
 #### 1. Registration
 <img width="1902" height="795" alt="user_Registration" src="https://github.com/user-attachments/assets/93ba7fcd-74b7-4099-aed3-e0874c5cd3eb" />
 
-#### 2. Login as User
+#### 2. Log in as User
 <img width="1901" height="795" alt="user_Login" src="https://github.com/user-attachments/assets/dc558d9b-2596-49b4-aa97-945c1904fed1" />
 
 #### 3. User Dashboard
 <img width="1902" height="798" alt="user_Dashboard" src="https://github.com/user-attachments/assets/91e6bfb8-4cbd-4b58-91f8-3ca7e7e7f9f0" />
 
-#### 4. User Profile Managing
+#### 4. Updating User Profile & Upload Avatar
 <img width="1900" height="857" alt="image" src="https://github.com/user-attachments/assets/bc8ad1fc-6148-454e-bb25-4f89c0f1241e" />
 
 
