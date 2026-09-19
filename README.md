@@ -251,7 +251,7 @@ The frontend depends on the backend API and provides no mock data. Start the bac
 
 | Route | Access | Purpose |
 |---|---|---|
-| `/` | Public | Homepage with blog cards, search, and category filter (`?title=` pre-fills the search) |
+| `/` | Public | Homepage with blog cards, search, and category filter (`?title=` and `?category=` pre-fill the filters, e.g. `/?title=playwright&category=Automation`) |
 | `/blogs/[id]` | Public | Blog details, with a "Blog Not Found" page for unknown ids |
 | `/register` | Public | User registration |
 | `/login` | Public | Login |

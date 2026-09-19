@@ -14,6 +14,7 @@ import { getBlogs } from "@/services/blog.service";
 import BlogCard from "@/components/BlogCard";
 import SearchBar from "@/components/SearchBar";
 import CategoryFilter from "@/components/CategoryFilter";
+import { FILTER_CATEGORIES } from "@/utils/categories";
 
 function HomeFallback() {
   return (
@@ -26,22 +27,34 @@ function HomeFallback() {
 function HomeContent() {
   const { user, ready } = useAuth();
   const isGuest = !user;
-  const urlTitle = useSearchParams().get("title") || "";
+  const searchParams = useSearchParams();
+  const urlTitle = searchParams.get("title") || "";
+  // ?category= is matched ignoring case; an unknown value is ignored.
+  const urlCategory =
+    FILTER_CATEGORIES.find(
+      (c) => c.toLowerCase() === (searchParams.get("category") || "").toLowerCase()
+    ) || "";
 
   const [title, setTitle] = useState(urlTitle);
   // Guests type into `draft` and apply it with the Search button / Enter.
   const [draft, setDraft] = useState(urlTitle);
   const [lastUrlTitle, setLastUrlTitle] = useState(urlTitle);
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState(urlCategory || "All");
+  const [lastUrlCategory, setLastUrlCategory] = useState(urlCategory);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // A search submitted from the navbar changes the URL — adopt it here.
+  // A search submitted from the navbar (or a typed URL) changes the query
+  // string — adopt it here.
   if (urlTitle !== lastUrlTitle) {
     setLastUrlTitle(urlTitle);
     setTitle(urlTitle);
     setDraft(urlTitle);
+  }
+  if (urlCategory !== lastUrlCategory) {
+    setLastUrlCategory(urlCategory);
+    if (urlCategory) setCategory(urlCategory);
   }
 
   useEffect(() => {
