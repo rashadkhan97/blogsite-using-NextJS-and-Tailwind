@@ -341,7 +341,7 @@ GET /api/blogs?title=playwright&category=Testing
 
 ## Screenshots
 
-### Guest Dashboard
+### Public blog discovery
 
 ![Homepage with blog cards, search, and category filter](screenshots/home.png)
 
