@@ -337,9 +337,8 @@ GET /api/blogs?title=playwright&category=Testing
 
 ## Screenshots
 
-### Public blog discovery
-
-![Homepage with blog cards, search, and category filter](screenshots/home.png)
+### Guest Dashboard
+<img width="1900" height="793" alt="guest_page" src="https://github.com/user-attachments/assets/c4d80aa5-f493-4966-94d2-eb86800877dd" />
 
 ### Blog details
 
